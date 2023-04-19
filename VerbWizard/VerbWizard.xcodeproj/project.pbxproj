@@ -15,6 +15,12 @@
 		73C9F45329ED8EDE001737F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73C9F45529ED8EDE001737F7 /* Localizable.strings */; };
 		73C9F45A29ED99A0001737F7 /* SelectVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9F45929ED99A0001737F7 /* SelectVerbsViewController.swift */; };
 		73C9F45C29ED99D7001737F7 /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C9F45B29ED99D7001737F7 /* TrainViewController.swift */; };
+		73CF636429EE419900D4C6ED /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 73CF636329EE419900D4C6ED /* SnapKit */; };
+		73CF636629EE435600D4C6ED /* SelectVerbTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF636529EE435600D4C6ED /* SelectVerbTableViewCell.swift */; };
+		73CF636829EE472D00D4C6ED /* UIView+addSubViews().swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF636729EE472D00D4C6ED /* UIView+addSubViews().swift */; };
+		73CF636A29EE484A00D4C6ED /* UIStackView+addArrangedSubviews().swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF636929EE484A00D4C6ED /* UIStackView+addArrangedSubviews().swift */; };
+		73CF636E29EE4D1300D4C6ED /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF636D29EE4D1300D4C6ED /* Verb.swift */; };
+		73CF637029EE4D5600D4C6ED /* IrregularVerbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF636F29EE4D5600D4C6ED /* IrregularVerbs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +35,11 @@
 		73C9F45629ED8EF2001737F7 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		73C9F45929ED99A0001737F7 /* SelectVerbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVerbsViewController.swift; sourceTree = "<group>"; };
 		73C9F45B29ED99D7001737F7 /* TrainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
+		73CF636529EE435600D4C6ED /* SelectVerbTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectVerbTableViewCell.swift; sourceTree = "<group>"; };
+		73CF636729EE472D00D4C6ED /* UIView+addSubViews().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubViews().swift"; sourceTree = "<group>"; };
+		73CF636929EE484A00D4C6ED /* UIStackView+addArrangedSubviews().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+addArrangedSubviews().swift"; sourceTree = "<group>"; };
+		73CF636D29EE4D1300D4C6ED /* Verb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
+		73CF636F29EE4D5600D4C6ED /* IrregularVerbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularVerbs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73CF636429EE419900D4C6ED /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				73C9F44C29ED8E58001737F7 /* String+localized.swift */,
+				73CF636729EE472D00D4C6ED /* UIView+addSubViews().swift */,
+				73CF636929EE484A00D4C6ED /* UIStackView+addArrangedSubviews().swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -101,7 +115,9 @@
 		73C9F45729ED997C001737F7 /* Select */ = {
 			isa = PBXGroup;
 			children = (
-				73C9F45929ED99A0001737F7 /* SelectVerbsViewController.swift */,
+				73CF636C29EE4B4500D4C6ED /* Controller */,
+				73CF636B29EE4B3A00D4C6ED /* View */,
+				73CF637129EE4DD000D4C6ED /* Model */,
 			);
 			path = Select;
 			sourceTree = "<group>";
@@ -112,6 +128,31 @@
 				73C9F45B29ED99D7001737F7 /* TrainViewController.swift */,
 			);
 			path = Train;
+			sourceTree = "<group>";
+		};
+		73CF636B29EE4B3A00D4C6ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				73CF636529EE435600D4C6ED /* SelectVerbTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		73CF636C29EE4B4500D4C6ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				73C9F45929ED99A0001737F7 /* SelectVerbsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		73CF637129EE4DD000D4C6ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				73CF636D29EE4D1300D4C6ED /* Verb.swift */,
+				73CF636F29EE4D5600D4C6ED /* IrregularVerbs.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +171,9 @@
 			dependencies = (
 			);
 			name = VerbWizard;
+			packageProductDependencies = (
+				73CF636329EE419900D4C6ED /* SnapKit */,
+			);
 			productName = VerbWizard;
 			productReference = 73C9F43529ED8881001737F7 /* VerbWizard.app */;
 			productType = "com.apple.product-type.application";
@@ -159,6 +203,9 @@
 				ru,
 			);
 			mainGroup = 73C9F42C29ED8881001737F7;
+			packageReferences = (
+				73CF636229EE419900D4C6ED /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 73C9F43629ED8881001737F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -186,10 +233,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73CF636629EE435600D4C6ED /* SelectVerbTableViewCell.swift in Sources */,
 				73C9F43D29ED8881001737F7 /* HomeViewController.swift in Sources */,
 				73C9F44D29ED8E58001737F7 /* String+localized.swift in Sources */,
+				73CF636E29EE4D1300D4C6ED /* Verb.swift in Sources */,
+				73CF636829EE472D00D4C6ED /* UIView+addSubViews().swift in Sources */,
 				73C9F45C29ED99D7001737F7 /* TrainViewController.swift in Sources */,
+				73CF637029EE4D5600D4C6ED /* IrregularVerbs.swift in Sources */,
 				73C9F43929ED8881001737F7 /* AppDelegate.swift in Sources */,
+				73CF636A29EE484A00D4C6ED /* UIStackView+addArrangedSubviews().swift in Sources */,
 				73C9F45A29ED99A0001737F7 /* SelectVerbsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +461,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		73CF636229EE419900D4C6ED /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		73CF636329EE419900D4C6ED /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73CF636229EE419900D4C6ED /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 73C9F42D29ED8881001737F7 /* Project object */;
 }
