@@ -7,11 +7,20 @@
 
 import Foundation
 
-class IrregularVerbs {
-    private(set) var verbs: [Verb] = []
-    var selectedVerbs: [Verb] = []
+final class IrregularVerbs {
+    // Singleton
+    static var shared = IrregularVerbs()
     
-    func configureVerbs() {
+    private init() {
+        configureVerbs()
+    }
+    
+    // MARK: - Properties
+    var selectedVerbs: [Verb] = []
+    private(set) var verbs: [Verb] = []
+    
+    // MARK: - Methods
+    private func configureVerbs() {
         verbs = [
             Verb(infinitive: "blow", pastSimple: "blew", participle: "blown"),
             Verb(infinitive: "break", pastSimple: "broke", participle: "broken"),
