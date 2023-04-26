@@ -19,6 +19,16 @@ final class TrainViewController: UIViewController {
     
     private lazy var contentView: UIView = UIView()
     
+    private lazy var scoreTextLabel: UILabel = {
+        let label = UILabel()
+        
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .black
+        label.text = "Score: \(score)"
+        
+        return label
+    }()
+        
     private lazy var infinitiveLabel: UILabel = {
         let label = UILabel()
         
@@ -54,6 +64,7 @@ final class TrainViewController: UIViewController {
         
         field.borderStyle = .roundedRect
         field.delegate = self
+        field.addTarget(self, action: #selector(changeTextButton), for: .editingChanged)
         
         return field
     }()
@@ -63,6 +74,7 @@ final class TrainViewController: UIViewController {
         
         field.borderStyle = .roundedRect
         field.delegate = self
+        field.addTarget(self, action: #selector(changeTextButton), for: .editingChanged)
         
         return field
     }()
@@ -80,18 +92,46 @@ final class TrainViewController: UIViewController {
         return button
     }()
     
+    private lazy var progressLabel: UILabel = {
+        let label = UILabel()
+        
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .black
+        label.text = "\(count)/\(dataSource.count)"
+        
+        return label
+    }()
+    
+    private lazy var progressView: UIProgressView = {
+        let progressView = UIProgressView(progressViewStyle: .default)
+        
+        progressView.tintColor = .systemGreen
+        progressView.progress = 0
+        
+        return progressView
+    }()
+    
     // MARK: - Properties
     private let edgeInsets = 30
     private let dataSource = IrregularVerbs.shared.selectedVerbs
+    
+    private var score = 0
+    private var isSecondCorrect = true
+    
     private var currentVerb: Verb? {
         guard dataSource.count > count else { return nil }
         return dataSource[count]
     }
+    
     private var count = 0 {
         didSet {
             infinitiveLabel.text = currentVerb?.infinitive
             pastSimpleTextField.text = ""
             participleTextField.text = ""
+            progressLabel.text = "\(count)/\(dataSource.count)"
+            let progress = Float(count) / Float(dataSource.count)
+            progressView.setProgress(progress, animated: true)
+            
         }
     }
     
@@ -121,19 +161,51 @@ final class TrainViewController: UIViewController {
     private func checkAction() {
         if checkAnswers() {
             if currentVerb?.infinitive == dataSource.last?.infinitive {
-                navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.congratulationAlert()
+                }
+            } else {
+                count += 1
+                if isSecondCorrect {
+                    score += 1
+                    scoreTextLabel.text = "Score: \(score)"
+                }
+                isSecondCorrect = true
             }
-            
-            count += 1
         } else {
             checkButton.backgroundColor = .red
             checkButton.setTitle("Try again", for: .normal)
+            isSecondCorrect = false
         }
     }
     
+    @objc
+    private func changeTextButton() {
+        checkButton.backgroundColor = .systemGray5
+        checkButton.setTitle("Check", for: .normal)
+    }
+    
     private func checkAnswers() -> Bool {
-        pastSimpleTextField.text?.lowercased() == currentVerb?.pastSimple.lowercased() &&
-        participleTextField.text?.lowercased() == currentVerb?.participle.lowercased()
+        pastSimpleTextField.text?
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines) == currentVerb?.pastSimple
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines) &&
+        participleTextField.text?
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines) == currentVerb?.participle
+            .lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    private func congratulationAlert() {
+        let alert = UIAlertController(title: "Your results", message: "Your score: \(score + 1)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(action)
+        present(alert, animated: true)
     }
     
     private func setupUI() {
@@ -142,12 +214,16 @@ final class TrainViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubviews([
+            scoreTextLabel,
             infinitiveLabel,
             pastSimpleLabel,
             pastSimpleTextField,
             participleLabel,
             participleTextField,
-            checkButton])
+            checkButton,
+            progressLabel,
+            progressView
+        ])
         
         setupConstraints()
     }
@@ -159,6 +235,11 @@ final class TrainViewController: UIViewController {
         
         contentView.snp.makeConstraints { make in
             make.size.edges.equalToSuperview()
+        }
+        
+        scoreTextLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(30)
+            make.trailing.equalToSuperview().inset(30)
         }
         
         infinitiveLabel.snp.makeConstraints { make in
@@ -189,6 +270,18 @@ final class TrainViewController: UIViewController {
         checkButton.snp.makeConstraints { make in
             make.top.equalTo(participleTextField.snp.bottom).offset(100)
             make.trailing.leading.equalToSuperview().inset(edgeInsets)
+        }
+        
+        progressLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(checkButton.snp.bottom).offset(edgeInsets)
+            
+        }
+        
+        progressView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(progressLabel.snp.bottom).offset(edgeInsets-25)
+            make.leading.equalToSuperview().inset(edgeInsets)
         }
     }
     
