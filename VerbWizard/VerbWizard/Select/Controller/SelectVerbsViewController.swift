@@ -48,11 +48,13 @@ extension SelectVerbsViewController {
 extension SelectVerbsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let verb = dataSource.verbs[indexPath.row]
+        
         if isSelected(verb: verb) {
             dataSource.selectedVerbs.removeAll(where: { $0.infinitive == verb.infinitive })
         } else {
             dataSource.selectedVerbs.append(verb)
         }
+        
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

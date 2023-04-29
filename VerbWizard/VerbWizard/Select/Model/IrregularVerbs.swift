@@ -13,6 +13,7 @@ final class IrregularVerbs {
     
     private init() {
         configureVerbs()
+        selectedVerbs = verbs
     }
     
     // MARK: - Properties
