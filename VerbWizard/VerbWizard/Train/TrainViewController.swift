@@ -160,20 +160,17 @@ final class TrainViewController: UIViewController {
     @objc
     private func checkAction() {
         if checkAnswers() {
-            if currentVerb?.infinitive == dataSource.last?.infinitive {
-                self.navigationController?.popViewController(animated: true)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.congratulationAlert()
-                }
-            } else {
-                count += 1
-                if isSecondCorrect {
-                    score += 1
-                    scoreTextLabel.text = "Score: \(score)"
-                }
-                isSecondCorrect = true
+            if isSecondCorrect {
+                score += 1
+                scoreTextLabel.text = "Score: \(score)"
             }
+            isSecondCorrect = true
+            
+            if currentVerb?.infinitive == dataSource.last?.infinitive {
+                congratulationAlert()
+            }
+            
+            count += 1
         } else {
             checkButton.backgroundColor = .red
             checkButton.setTitle("Try again", for: .normal)
@@ -201,8 +198,10 @@ final class TrainViewController: UIViewController {
     }
     
     private func congratulationAlert() {
-        let alert = UIAlertController(title: "Your results", message: "Your score: \(score + 1)", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(title: "Your results", message: "Your score: \(score)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
         
         alert.addAction(action)
         present(alert, animated: true)
